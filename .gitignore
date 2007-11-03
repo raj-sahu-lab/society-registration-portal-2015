@@ -1,0 +1,29 @@
+# Compiled binaries
+*.dll
+*.exe
+*.pdb
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+baksrc/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database files
+*.mdf
+*.ldf
+*.bak
+
+# Archives
+*.rar
+*.zip
