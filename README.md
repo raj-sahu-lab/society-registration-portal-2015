@@ -2,6 +2,8 @@
 
 A web-based ERP system for managing society/organization member registrations, hierarchical designations, geographic zones, and reporting.
 
+> **Note:** This is a 2007–2008 portfolio codebase. Authentication uses direct SQL queries and passwords are stored without modern hashing — these would be the first things hardened before any production deployment today.
+
 ## Built: 2007
 
 ## Tech Stack

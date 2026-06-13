@@ -17,6 +17,7 @@ baksrc/
 
 # OS files
 .DS_Store
+**/.DS_Store
 Thumbs.db
 
 # Database files
@@ -30,3 +31,11 @@ Thumbs.db
 node_modules/
 .env
 *.env.local
+
+# Member photos and uploads (potential PII)
+Img_Member/
+Memo_Photo/
+Uploads/
+
+# Compiled assemblies
+Bin/*.dll
