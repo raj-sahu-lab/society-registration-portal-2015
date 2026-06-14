@@ -110,18 +110,26 @@ public partial class Admin_Label_Assign_Master : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Insert into Level_AssignMaster(Assign_ID, Level_Name, ID, Name, Mode) values('" + txtcomm_id.Text + "','" + DropDownList1.Text + "','" + DropDownList2.Text + "','" + txtname.Text + "','ACTIVE')";
+            cmd.CommandText = "Insert into Level_AssignMaster(Assign_ID, Level_Name, ID, Name, Mode) values(@assignId, @levelName, @id, @name, 'ACTIVE')";
+            cmd.Parameters.AddWithValue("@assignId", txtcomm_id.Text);
+            cmd.Parameters.AddWithValue("@levelName", DropDownList1.Text);
+            cmd.Parameters.AddWithValue("@id", DropDownList2.Text);
+            cmd.Parameters.AddWithValue("@name", txtname.Text);
             cmd.Connection = con;
             cmd.ExecuteNonQuery();
             if (DropDownList1.Text == "CLIENT")
             {
-                cmd.CommandText = "Update Login Set Login_Type='Clients' Where Login_ID='" + DropDownList2.Text + "'";
+                cmd.Parameters.Clear();
+                cmd.CommandText = "Update Login Set Login_Type='Clients' Where Login_ID=@loginId";
+                cmd.Parameters.AddWithValue("@loginId", DropDownList2.Text);
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
             }
             else
             {
-                cmd.CommandText = "Update Login Set Login_Type='Head' Where Login_ID='" + DropDownList2.Text + "'";
+                cmd.Parameters.Clear();
+                cmd.CommandText = "Update Login Set Login_Type='Head' Where Login_ID=@loginId";
+                cmd.Parameters.AddWithValue("@loginId", DropDownList2.Text);
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
             }           
@@ -155,7 +163,8 @@ public partial class Admin_Label_Assign_Master : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "select Name from MLMRegistration Where Upliner_ID='" + DropDownList2.Text + "'";
+            cmd.CommandText = "select Name from MLMRegistration Where Upliner_ID=@uplinerId";
+            cmd.Parameters.AddWithValue("@uplinerId", DropDownList2.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())

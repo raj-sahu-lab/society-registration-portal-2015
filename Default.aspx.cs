@@ -41,7 +41,8 @@ public partial class Default : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "select Mode from LevelMaster Where ID='" + TextBox1.Text + "'";
+            cmd.CommandText = "select Mode from LevelMaster Where ID=@loginId";
+            cmd.Parameters.AddWithValue("@loginId", TextBox1.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -49,6 +50,7 @@ public partial class Default : System.Web.UI.Page
                 CL_MODE = dr[0].ToString();
             }
             dr.Close();
+            cmd.Parameters.Clear();
             cmd.CommandText = "Select Login_Type from Login where (Login_ID=@loginId AND Password=@password)";
             cmd.Parameters.AddWithValue("@loginId", TextBox1.Text);
             cmd.Parameters.AddWithValue("@password", TextBox2.Text);

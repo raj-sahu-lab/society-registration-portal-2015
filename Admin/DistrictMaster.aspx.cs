@@ -74,7 +74,8 @@ public partial class Admin_DistrictMaster : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country='" + ddl_country.Text + "' Order By State_Name";
+            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country=@country Order By State_Name";
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -125,7 +126,11 @@ public partial class Admin_DistrictMaster : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Insert into DistrictMaster(Sr_No, Country, State_Name, District) values('" + txtcomm_id.Text + "','" + ddl_country.Text + "','" + ddl_state.Text + "','" + txtlabel_name.Text + "')";
+            cmd.CommandText = "Insert into DistrictMaster(Sr_No, Country, State_Name, District) values(@srNo, @country, @stateName, @district)";
+            cmd.Parameters.AddWithValue("@srNo", txtcomm_id.Text);
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", txtlabel_name.Text);
             cmd.Connection = con;
             cmd.ExecuteNonQuery();
             string jv = "<script>alert('Record has been saved!!!');</script>";

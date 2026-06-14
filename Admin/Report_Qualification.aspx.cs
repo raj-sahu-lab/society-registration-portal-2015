@@ -74,11 +74,13 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
         GV_personal_details.PageIndex = e.NewPageIndex;
         Upliner_Details();
     }
+    static readonly string RPT_COLS = "Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription";
+
     void Upliner_Details()
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Order By Reg_ID";
+        string qry = "select " + RPT_COLS + " From RSS_Registration Order By Reg_ID";
         DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
         if (dtcourse.Rows.Count > 0)
         {
@@ -90,8 +92,10 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND Country='" + ddl_country.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND Country=@country Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@country", ddl_country.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -102,8 +106,14 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' AND QSpecialization1='" + ddl_subspecialization.Text + "' AND QSpecialization2='" + ddl_subsubspecialization.Text + "' AND Country='" + ddl_country.Text + "' AND State='" + ddl_state.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec AND QSpecialization1=@qspec1 AND QSpecialization2=@qspec2 AND Country=@country AND State=@state Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text),
+            new SqlParameter("@qspec1", ddl_subspecialization.Text),
+            new SqlParameter("@qspec2", ddl_subsubspecialization.Text),
+            new SqlParameter("@country", ddl_country.Text),
+            new SqlParameter("@state", ddl_state.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -114,8 +124,15 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' AND QSpecialization1='" + ddl_subspecialization.Text + "' AND QSpecialization2='" + ddl_subsubspecialization.Text + "' AND Country='" + ddl_country.Text + "' AND State='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec AND QSpecialization1=@qspec1 AND QSpecialization2=@qspec2 AND Country=@country AND State=@state AND District=@district Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text),
+            new SqlParameter("@qspec1", ddl_subspecialization.Text),
+            new SqlParameter("@qspec2", ddl_subsubspecialization.Text),
+            new SqlParameter("@country", ddl_country.Text),
+            new SqlParameter("@state", ddl_state.Text),
+            new SqlParameter("@district", ddl_district.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -126,8 +143,16 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' AND QSpecialization1='" + ddl_subspecialization.Text + "' AND QSpecialization2='" + ddl_subsubspecialization.Text + "' AND Country='" + ddl_country.Text + "' AND State='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' AND Vidhansabha='" + ddl_city.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec AND QSpecialization1=@qspec1 AND QSpecialization2=@qspec2 AND Country=@country AND State=@state AND District=@district AND Vidhansabha=@city Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text),
+            new SqlParameter("@qspec1", ddl_subspecialization.Text),
+            new SqlParameter("@qspec2", ddl_subsubspecialization.Text),
+            new SqlParameter("@country", ddl_country.Text),
+            new SqlParameter("@state", ddl_state.Text),
+            new SqlParameter("@district", ddl_district.Text),
+            new SqlParameter("@city", ddl_city.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -138,8 +163,17 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "Select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' AND QSpecialization1='" + ddl_subspecialization.Text + "' AND QSpecialization2='" + ddl_subsubspecialization.Text + "' AND Country='" + ddl_country.Text + "' AND State='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' AND Vidhansabha='" + ddl_city.Text + "' AND Village='" + ddl_village.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec AND QSpecialization1=@qspec1 AND QSpecialization2=@qspec2 AND Country=@country AND State=@state AND District=@district AND Vidhansabha=@city AND Village=@village Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text),
+            new SqlParameter("@qspec1", ddl_subspecialization.Text),
+            new SqlParameter("@qspec2", ddl_subsubspecialization.Text),
+            new SqlParameter("@country", ddl_country.Text),
+            new SqlParameter("@state", ddl_state.Text),
+            new SqlParameter("@district", ddl_district.Text),
+            new SqlParameter("@city", ddl_city.Text),
+            new SqlParameter("@village", ddl_village.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -150,8 +184,18 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "Select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' AND QSpecialization1='" + ddl_subspecialization.Text + "' AND QSpecialization2='" + ddl_subsubspecialization.Text + "' AND Country='" + ddl_country.Text + "' AND State='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' AND Vidhansabha='" + ddl_city.Text + "' AND Village='" + ddl_village.Text + "' AND Name='" + txtsearch.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec AND QSpecialization1=@qspec1 AND QSpecialization2=@qspec2 AND Country=@country AND State=@state AND District=@district AND Vidhansabha=@city AND Village=@village AND Name=@name Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text),
+            new SqlParameter("@qspec1", ddl_subspecialization.Text),
+            new SqlParameter("@qspec2", ddl_subsubspecialization.Text),
+            new SqlParameter("@country", ddl_country.Text),
+            new SqlParameter("@state", ddl_state.Text),
+            new SqlParameter("@district", ddl_district.Text),
+            new SqlParameter("@city", ddl_city.Text),
+            new SqlParameter("@village", ddl_village.Text),
+            new SqlParameter("@name", txtsearch.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -162,8 +206,9 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "Select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -174,8 +219,10 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "Select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -186,8 +233,11 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "Select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' AND QSpecialization1='" + ddl_subspecialization.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec AND QSpecialization1=@qspec1 Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text),
+            new SqlParameter("@qspec1", ddl_subspecialization.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -198,8 +248,12 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
     {
         GV_personal_details.DataSource = null;
         GV_personal_details.DataBind();
-        string qry = "Select Reg_ID, convert(char(10), Reg_Date, 103) as Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription From RSS_Registration Where Qualification='" + ddl_qualification.Text + "' AND QSpecialization='" + ddl_specialization.Text + "' AND QSpecialization1='" + ddl_subspecialization.Text + "' AND QSpecialization2='" + ddl_subsubspecialization.Text + "' Order By Reg_ID";
-        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry);
+        string qry = "select " + RPT_COLS + " From RSS_Registration Where Qualification=@qualification AND QSpecialization=@qspec AND QSpecialization1=@qspec1 AND QSpecialization2=@qspec2 Order By Reg_ID";
+        DataTable dtcourse = ExecuteDataTable(classDB.qryStr, CommandType.Text, qry,
+            new SqlParameter("@qualification", ddl_qualification.Text),
+            new SqlParameter("@qspec", ddl_specialization.Text),
+            new SqlParameter("@qspec1", ddl_subspecialization.Text),
+            new SqlParameter("@qspec2", ddl_subsubspecialization.Text));
         if (dtcourse.Rows.Count > 0)
         {
             GV_personal_details.DataSource = dtcourse;
@@ -214,7 +268,9 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country='" + ddl_country.Text + "' Order By State_Name";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country=@country Order By State_Name";
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -242,7 +298,9 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Sub_Specialization from SubSpeclMaster Where Specialization_Name='" + ddl_specialization.Text + "' Order By Sub_Specialization";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Sub_Specialization from SubSpeclMaster Where Specialization_Name=@specName Order By Sub_Specialization";
+            cmd.Parameters.AddWithValue("@specName", ddl_specialization.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -266,7 +324,10 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Sub_Sub_Specialization from Sub_SubSpeclMaster Where Specialization_Name='" + ddl_specialization.Text + "' AND Sub_Specialization='" + ddl_subspecialization.Text + "' Order By Sub_Sub_Specialization";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Sub_Sub_Specialization from Sub_SubSpeclMaster Where Specialization_Name=@specName AND Sub_Specialization=@subSpecName Order By Sub_Sub_Specialization";
+            cmd.Parameters.AddWithValue("@specName", ddl_specialization.Text);
+            cmd.Parameters.AddWithValue("@subSpecName", ddl_subspecialization.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -294,7 +355,9 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' Order By District";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name=@stateName Order By District";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -318,7 +381,10 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' Order By Vidhansabha";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name=@stateName AND District=@district Order By Vidhansabha";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", ddl_district.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -342,7 +408,11 @@ public partial class Admin_Report_Qualification : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' AND Vidhansabha='" + ddl_city.Text + "' Order By Village";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name=@stateName AND District=@district AND Vidhansabha=@city Order By Village";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", ddl_district.Text);
+            cmd.Parameters.AddWithValue("@city", ddl_city.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())

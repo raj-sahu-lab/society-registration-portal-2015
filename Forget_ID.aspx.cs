@@ -31,7 +31,8 @@ public partial class Forget_ID : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Upliner_ID, Name from MLMRegistration where Contact_No='" + TextBox3.Text + "'";
+            cmd.CommandText = "Select Upliner_ID, Name from MLMRegistration where Contact_No=@contactNo";
+            cmd.Parameters.AddWithValue("@contactNo", TextBox3.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())

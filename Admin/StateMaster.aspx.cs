@@ -110,7 +110,12 @@ public partial class Admin_StateMaster : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Insert into StateMaster(Sr_No, Country, Zone, State_Name, State_Code) values('" + txtcomm_id.Text + "','" + ddl_country.Text + "','" + ddl_zone.Text + "','" + txtlabel_name.Text + "','" + txtcode.Text + "')";
+            cmd.CommandText = "Insert into StateMaster(Sr_No, Country, Zone, State_Name, State_Code) values(@srNo, @country, @zone, @stateName, @stateCode)";
+            cmd.Parameters.AddWithValue("@srNo", txtcomm_id.Text);
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
+            cmd.Parameters.AddWithValue("@zone", ddl_zone.Text);
+            cmd.Parameters.AddWithValue("@stateName", txtlabel_name.Text);
+            cmd.Parameters.AddWithValue("@stateCode", txtcode.Text);
             cmd.Connection = con;
             cmd.ExecuteNonQuery();
             string jv = "<script>alert('Record has been saved!!!');</script>";
@@ -143,7 +148,8 @@ public partial class Admin_StateMaster : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Zone_Name from ZoneMaster Where Country='" + ddl_country.Text + "' Order By Zone_Name";
+            cmd.CommandText = "Select Distinct Zone_Name from ZoneMaster Where Country=@country Order By Zone_Name";
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())

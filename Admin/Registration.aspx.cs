@@ -168,12 +168,13 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country='" + ddl_country.Text + "' Order By State_Name";
+            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country=@country Order By State_Name";
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                ddl_state.Items.Add(dr[0].ToString());                
+                ddl_state.Items.Add(dr[0].ToString());
             }
             dr.Close();
             con.Close();
@@ -191,12 +192,14 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' Order By District";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name=@stateName Order By District";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                ddl_district.Items.Add(dr[0].ToString());               
+                ddl_district.Items.Add(dr[0].ToString());
             }
             dr.Close();
             con.Close();
@@ -214,7 +217,10 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' Order By Vidhansabha";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name=@stateName AND District=@district Order By Vidhansabha";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", ddl_district.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -237,7 +243,8 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country='" + ddl_country1.Text + "' Order By State_Name";
+            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country=@country1 Order By State_Name";
+            cmd.Parameters.AddWithValue("@country1", ddl_country1.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -260,7 +267,9 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name='" + ddl_state1.Text + "' Order By District";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name=@stateName1 Order By District";
+            cmd.Parameters.AddWithValue("@stateName1", ddl_state1.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -283,7 +292,10 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name='" + ddl_state1.Text + "' AND District='" + ddl_district1.Text + "' Order By Vidhansabha";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name=@stateName1 AND District=@district1 Order By Vidhansabha";
+            cmd.Parameters.AddWithValue("@stateName1", ddl_state1.Text);
+            cmd.Parameters.AddWithValue("@district1", ddl_district1.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -306,7 +318,8 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country='" + ddl_country2.Text + "' Order By State_Name";
+            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country=@country2 Order By State_Name";
+            cmd.Parameters.AddWithValue("@country2", ddl_country2.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -329,7 +342,9 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name='" + ddl_state2.Text + "' Order By District";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct District from DistrictMaster Where Country='India' AND State_Name=@stateName2 Order By District";
+            cmd.Parameters.AddWithValue("@stateName2", ddl_state2.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -352,7 +367,10 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name='" + ddl_state2.Text + "' AND District='" + ddl_district2.Text + "' Order By Vidhansabha";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Vidhansabha from CityMaster Where Country='India' AND State_Name=@stateName2 AND District=@district2 Order By Vidhansabha";
+            cmd.Parameters.AddWithValue("@stateName2", ddl_state2.Text);
+            cmd.Parameters.AddWithValue("@district2", ddl_district2.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -375,7 +393,11 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' AND Vidhansabha='" + ddl_city.Text + "' Order By Village";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name=@stateName AND District=@district AND Vidhansabha=@city Order By Village";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", ddl_district.Text);
+            cmd.Parameters.AddWithValue("@city", ddl_city.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -398,7 +420,11 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name='" + ddl_state1.Text + "' AND District='" + ddl_district1.Text + "' AND Vidhansabha='" + ddl_city1.Text + "' Order By Village";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name=@stateName1 AND District=@district1 AND Vidhansabha=@city1 Order By Village";
+            cmd.Parameters.AddWithValue("@stateName1", ddl_state1.Text);
+            cmd.Parameters.AddWithValue("@district1", ddl_district1.Text);
+            cmd.Parameters.AddWithValue("@city1", ddl_city1.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -421,7 +447,11 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name='" + ddl_state2.Text + "' AND District='" + ddl_district2.Text + "' AND Vidhansabha='" + ddl_city2.Text + "' Order By Village";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Village from VillageMaster Where Country='India' AND State_Name=@stateName2 AND District=@district2 AND Vidhansabha=@city2 Order By Village";
+            cmd.Parameters.AddWithValue("@stateName2", ddl_state2.Text);
+            cmd.Parameters.AddWithValue("@district2", ddl_district2.Text);
+            cmd.Parameters.AddWithValue("@city2", ddl_city2.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -444,7 +474,9 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Sub_Specialization from SubSpeclMaster Where Specialization_Name='" + ddlspecialization.Text + "' Order By Sub_Specialization";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Sub_Specialization from SubSpeclMaster Where Specialization_Name=@specName Order By Sub_Specialization";
+            cmd.Parameters.AddWithValue("@specName", ddlspecialization.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -467,7 +499,10 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Sub_Sub_Specialization from Sub_SubSpeclMaster Where Specialization_Name='" + ddlspecialization.Text + "' AND Sub_Specialization='" + ddlspecialization1.Text + "' Order By Sub_Sub_Specialization";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Sub_Sub_Specialization from Sub_SubSpeclMaster Where Specialization_Name=@specName AND Sub_Specialization=@subSpecName Order By Sub_Sub_Specialization";
+            cmd.Parameters.AddWithValue("@specName", ddlspecialization.Text);
+            cmd.Parameters.AddWithValue("@subSpecName", ddlspecialization1.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -490,7 +525,9 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Sub_Specialization from SubSpeclMaster Where Specialization_Name='" + ddlspecialization4.Text + "' Order By Sub_Specialization";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Sub_Specialization from SubSpeclMaster Where Specialization_Name=@specName4 Order By Sub_Specialization";
+            cmd.Parameters.AddWithValue("@specName4", ddlspecialization4.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -513,7 +550,10 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct Sub_Sub_Specialization from Sub_SubSpeclMaster Where Specialization_Name='" + ddlspecialization4.Text + "' AND Sub_Specialization='" + ddlspecialization5.Text + "' Order By Sub_Sub_Specialization";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Sub_Sub_Specialization from Sub_SubSpeclMaster Where Specialization_Name=@specName4 AND Sub_Specialization=@subSpecName5 Order By Sub_Sub_Specialization";
+            cmd.Parameters.AddWithValue("@specName4", ddlspecialization4.Text);
+            cmd.Parameters.AddWithValue("@subSpecName5", ddlspecialization5.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -554,8 +594,18 @@ public partial class Admin_Registration : System.Web.UI.Page
             Image3.Visible = true;
             try
             {
-                pat = (txtreg_id.Text);
-                fileImage.SaveAs(Server.MapPath("~/Img_Member/" + pat + ext));
+                string safeId = System.Text.RegularExpressions.Regex.Replace(txtreg_id.Text, @"[^a-zA-Z0-9_\-]", "");
+                string safeExt = System.IO.Path.GetExtension(fileImage.FileName).ToLower();
+                string[] allowedExts = { ".jpg", ".jpeg", ".png", ".gif" };
+                if (!Array.Exists(allowedExts, e => e == safeExt))
+                {
+                    string jvErr = "<script>alert('Invalid file type. Only jpg, jpeg, png, gif are allowed.');</script>";
+                    ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "alertExt", jvErr, false);
+                }
+                else
+                {
+                    fileImage.SaveAs(Server.MapPath("~/Img_Member/" + safeId + safeExt));
+                }
             }
             catch (Exception ex)
             {
@@ -738,15 +788,20 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct State_Code from StateMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' Order By State_Code";
-            cmd.Connection = con;          
+            cmd.CommandText = "Select Distinct State_Code from StateMaster Where Country='India' AND State_Name=@stateName Order By State_Code";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 st_code = dr[0].ToString();
             }
             dr.Close();
-            cmd.CommandText = "Select Distinct Vidhansabha_Code from CityMaster Where Country='India' AND State_Name='" + ddl_state.Text + "' AND District='" + ddl_district.Text + "' AND Vidhansabha='" + ddl_city.Text + "' Order By Vidhansabha_Code";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Distinct Vidhansabha_Code from CityMaster Where Country='India' AND State_Name=@stateName AND District=@district AND Vidhansabha=@city Order By Vidhansabha_Code";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", ddl_district.Text);
+            cmd.Parameters.AddWithValue("@city", ddl_city.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -825,17 +880,127 @@ public partial class Admin_Registration : System.Web.UI.Page
             int j = 0;
             int isrno = 1;
             i = ListBox1.Items.Count;
+            // Build shared parameters for both INSERT paths
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@regId", txtreg_id.Text);
+            cmd.Parameters.AddWithValue("@regDate", RegDate);
+            cmd.Parameters.AddWithValue("@name", txtname.Text);
+            cmd.Parameters.AddWithValue("@nickName", txtnickname.Text);
+            cmd.Parameters.AddWithValue("@sex", ddlsex.Text);
+            cmd.Parameters.AddWithValue("@dob", txtdob.Text);
+            cmd.Parameters.AddWithValue("@age", txtage.Text);
+            cmd.Parameters.AddWithValue("@nationality", ddlnationality.Text);
+            cmd.Parameters.AddWithValue("@marriageDate", txtmarriage_date.Text);
+            cmd.Parameters.AddWithValue("@occasion", ddl_occasion.Text);
+            cmd.Parameters.AddWithValue("@familyMember", txtfamily_member.Text);
+            cmd.Parameters.AddWithValue("@memberRss", txtmember_rss.Text);
+            cmd.Parameters.AddWithValue("@permanentAddr", txtpermanent_addr.Text);
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
+            cmd.Parameters.AddWithValue("@state", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", ddl_district.Text);
+            cmd.Parameters.AddWithValue("@city", ddl_city.Text);
+            cmd.Parameters.AddWithValue("@zone", ddl_zone.Text);
+            cmd.Parameters.AddWithValue("@currAddr", txtcurr_addr.Text);
+            cmd.Parameters.AddWithValue("@country1", ddl_country1.Text);
+            cmd.Parameters.AddWithValue("@state1", ddl_state1.Text);
+            cmd.Parameters.AddWithValue("@district1", ddl_district1.Text);
+            cmd.Parameters.AddWithValue("@city1", ddl_city1.Text);
+            cmd.Parameters.AddWithValue("@zone1", ddl_zone1.Text);
+            cmd.Parameters.AddWithValue("@officeAddr", txtoffice_addr.Text);
+            cmd.Parameters.AddWithValue("@country2", ddl_country2.Text);
+            cmd.Parameters.AddWithValue("@state2", ddl_state2.Text);
+            cmd.Parameters.AddWithValue("@district2", ddl_district2.Text);
+            cmd.Parameters.AddWithValue("@city2", ddl_city2.Text);
+            cmd.Parameters.AddWithValue("@zone2", ddl_zone2.Text);
+            cmd.Parameters.AddWithValue("@emailId1", txtemail_id1.Text);
+            cmd.Parameters.AddWithValue("@emailId2", txtemail_id2.Text);
+            cmd.Parameters.AddWithValue("@contactNo1", txtcontact_no1.Text);
+            cmd.Parameters.AddWithValue("@contactNo2", txtcontact_no2.Text);
+            cmd.Parameters.AddWithValue("@contactNo3", txtcontact_no3.Text);
+            cmd.Parameters.AddWithValue("@contactNo4", txtcontact_no4.Text);
+            cmd.Parameters.AddWithValue("@qualification", ddl_qualification.Text);
+            cmd.Parameters.AddWithValue("@qSpec", ddlspecialization.Text);
+            cmd.Parameters.AddWithValue("@qSpec1", ddlspecialization1.Text);
+            cmd.Parameters.AddWithValue("@qSpec2", ddlspelization2.Text);
+            cmd.Parameters.AddWithValue("@course1", txtcourse1.Text);
+            cmd.Parameters.AddWithValue("@occupation", ddloccupation.Text);
+            cmd.Parameters.AddWithValue("@eSpec", ddlspecialization4.Text);
+            cmd.Parameters.AddWithValue("@eSpec1", ddlspecialization5.Text);
+            cmd.Parameters.AddWithValue("@eSpec2", ddlspecialization6.Text);
+            cmd.Parameters.AddWithValue("@org1", txtorg1.Text);
+            cmd.Parameters.AddWithValue("@org1From", txtorg1_fromdate.Text);
+            cmd.Parameters.AddWithValue("@org1To", txtorg1_todate.Text);
+            cmd.Parameters.AddWithValue("@org1Ach", txtorg1_achievement.Text);
+            cmd.Parameters.AddWithValue("@org1Rem", txtorg1_remark.Text);
+            cmd.Parameters.AddWithValue("@org2", txtorg2.Text);
+            cmd.Parameters.AddWithValue("@org2From", txtorg2_fromdate.Text);
+            cmd.Parameters.AddWithValue("@org2To", txtorg2_todate.Text);
+            cmd.Parameters.AddWithValue("@org2Ach", txtorg2_achievement.Text);
+            cmd.Parameters.AddWithValue("@org2Rem", txtorg2_remark.Text);
+            cmd.Parameters.AddWithValue("@org3", txtorg3.Text);
+            cmd.Parameters.AddWithValue("@org3From", txtorg3_fromdate.Text);
+            cmd.Parameters.AddWithValue("@org3To", txtorg3_todate.Text);
+            cmd.Parameters.AddWithValue("@org3Ach", txtorg3_achievement.Text);
+            cmd.Parameters.AddWithValue("@org3Rem", txtorg3_remark.Text);
+            cmd.Parameters.AddWithValue("@org4", txtorg4.Text);
+            cmd.Parameters.AddWithValue("@org4From", txtorg4_fromdate.Text);
+            cmd.Parameters.AddWithValue("@org4To", txtorg4_todate.Text);
+            cmd.Parameters.AddWithValue("@org4Ach", txtorg4_achievement.Text);
+            cmd.Parameters.AddWithValue("@org4Rem", txtorg4_remark.Text);
+            cmd.Parameters.AddWithValue("@hobbies1", txthobbies1.Text);
+            cmd.Parameters.AddWithValue("@extra1", txtextra_act1.Text);
+            cmd.Parameters.AddWithValue("@hobbies2", txthobbies2.Text);
+            cmd.Parameters.AddWithValue("@extra2", txtextra_act2.Text);
+            cmd.Parameters.AddWithValue("@hobbies3", txthobbies3.Text);
+            cmd.Parameters.AddWithValue("@extra3", txtextra_act3.Text);
+            cmd.Parameters.AddWithValue("@hobbies4", txthobbies4.Text);
+            cmd.Parameters.AddWithValue("@extra4", txtextra_act4.Text);
+            cmd.Parameters.AddWithValue("@hobbies5", txthobbies5.Text);
+            cmd.Parameters.AddWithValue("@extra5", txtextra_act5.Text);
+            cmd.Parameters.AddWithValue("@achievements", txtachievements.Text);
+            cmd.Parameters.AddWithValue("@behavior", txtbehavior_analysis.Text);
+            cmd.Parameters.AddWithValue("@futureAmbition", txtfuture_ambition.Text);
+            cmd.Parameters.AddWithValue("@meetingReason", txtmeeting_reason.Text);
+            cmd.Parameters.AddWithValue("@meetingPlace", txtmeeting_place.Text);
+            cmd.Parameters.AddWithValue("@meetingDate", txtmeeting_date.Text);
+            cmd.Parameters.AddWithValue("@assignWork", ddlassign_work.Text);
+            cmd.Parameters.AddWithValue("@purpose", txtany_purpose.Text);
+            cmd.Parameters.AddWithValue("@memo", txtmemo.Text);
+
             if (j == i)
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "Insert into RSS_Registration(Reg_ID, Reg_Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Memo_Discription) values('" + txtreg_id.Text + "','" + RegDate + "','" + txtname.Text + "','" + txtnickname.Text + "','" + ddlsex.Text + "','" + txtdob.Text + "','" + txtage.Text + "','" + ddlnationality.Text + "','" + txtmarriage_date.Text + "','" + ddl_occasion.Text + "','" + txtfamily_member.Text + "','" + txtmember_rss.Text + "','" + txtpermanent_addr.Text + "','" + ddl_country.Text + "','" + ddl_state.Text + "','" + ddl_district.Text + "','" + ddl_city.Text + "','" + ddl_zone.Text + "','" + txtcurr_addr.Text + "','" + ddl_country1.Text + "','" + ddl_state1.Text + "','" + ddl_district1.Text + "','" + ddl_city1.Text + "','" + ddl_zone1.Text + "','" + txtoffice_addr.Text + "','" + ddl_country2.Text + "','" + ddl_state2.Text + "','" + ddl_district2.Text + "','" + ddl_city2.Text + "','" + ddl_zone2.Text + "','" + txtemail_id1.Text + "','" + txtemail_id2.Text + "','" + txtcontact_no1.Text + "','" + txtcontact_no2.Text + "','" + txtcontact_no3.Text + "','" + txtcontact_no4.Text + "','" + ddl_qualification.Text + "','" + ddlspecialization.Text + "','" + ddlspecialization1.Text + "','" + ddlspelization2.Text + "','" + txtcourse1.Text + "','" + ddloccupation.Text + "','" + ddlspecialization4.Text + "','" + ddlspecialization5.Text + "','" + ddlspecialization6.Text + "','1','" + txtorg1.Text + "','" + txtorg1_fromdate.Text + "','" + txtorg1_todate.Text + "','" + txtorg1_achievement.Text + "','" + txtorg1_remark.Text + "','2','" + txtorg2.Text + "','" + txtorg2_fromdate.Text + "','" + txtorg2_todate.Text + "','" + txtorg2_achievement.Text + "','" + txtorg2_remark.Text + "','3','" + txtorg3.Text + "','" + txtorg3_fromdate.Text + "','" + txtorg3_todate.Text + "','" + txtorg3_achievement.Text + "','" + txtorg3_remark.Text + "','4','" + txtorg4.Text + "','" + txtorg4_fromdate.Text + "','" + txtorg4_todate.Text + "','" + txtorg4_achievement.Text + "','" + txtorg4_remark.Text + "','1','" + txthobbies1.Text + "','" + txtextra_act1.Text + "','2','" + txthobbies2.Text + "','" + txtextra_act2.Text + "','3','" + txthobbies3.Text + "','" + txtextra_act3.Text + "','4','" + txthobbies4.Text + "','" + txtextra_act4.Text + "','5','" + txthobbies5.Text + "','" + txtextra_act5.Text + "','" + txtachievements.Text + "','" + txtbehavior_analysis.Text + "','" + txtfuture_ambition.Text + "','" + txtmeeting_reason.Text + "','" + txtmeeting_place.Text + "','" + txtmeeting_date.Text + "','" + ddlassign_work.Text + "','" + txtany_purpose.Text + "','1', '" + txtmemo.Text + "')";
+                cmd.CommandText = "Insert into RSS_Registration(Reg_ID, Reg_Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Memo_Discription) values(@regId, @regDate, @name, @nickName, @sex, @dob, @age, @nationality, @marriageDate, @occasion, @familyMember, @memberRss, @permanentAddr, @country, @state, @district, @city, @zone, @currAddr, @country1, @state1, @district1, @city1, @zone1, @officeAddr, @country2, @state2, @district2, @city2, @zone2, @emailId1, @emailId2, @contactNo1, @contactNo2, @contactNo3, @contactNo4, @qualification, @qSpec, @qSpec1, @qSpec2, @course1, @occupation, @eSpec, @eSpec1, @eSpec2, '1', @org1, @org1From, @org1To, @org1Ach, @org1Rem, '2', @org2, @org2From, @org2To, @org2Ach, @org2Rem, '3', @org3, @org3From, @org3To, @org3Ach, @org3Rem, '4', @org4, @org4From, @org4To, @org4Ach, @org4Rem, '1', @hobbies1, @extra1, '2', @hobbies2, @extra2, '3', @hobbies3, @extra3, '4', @hobbies4, @extra4, '5', @hobbies5, @extra5, @achievements, @behavior, @futureAmbition, @meetingReason, @meetingPlace, @meetingDate, @assignWork, @purpose, '1', @memo)";
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
             }
             while (j < i)
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "Insert into RSS_Registration(Reg_ID, Reg_Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation,From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription) values('" + txtreg_id.Text + "','" + RegDate + "','" + txtname.Text + "','" + txtnickname.Text + "','" + ddlsex.Text + "','" + txtdob.Text + "','" + txtage.Text + "','" + ddlnationality.Text + "','" + txtmarriage_date.Text + "','" + ddl_occasion.Text + "','" + txtfamily_member.Text + "','" + txtmember_rss.Text + "','" + txtpermanent_addr.Text + "','" + ddl_country.Text + "','" + ddl_state.Text + "','" + ddl_district.Text + "','" + ddl_city.Text + "','" + ddl_zone.Text + "','" + txtcurr_addr.Text + "','" + ddl_country1.Text + "','" + ddl_state1.Text + "','" + ddl_district1.Text + "','" + ddl_city1.Text + "','" + ddl_zone1.Text + "','" + txtoffice_addr.Text + "','" + ddl_country2.Text + "','" + ddl_state2.Text + "','" + ddl_district2.Text + "','" + ddl_city2.Text + "','" + ddl_zone2.Text + "','" + txtemail_id1.Text + "','" + txtemail_id2.Text + "','" + txtcontact_no1.Text + "','" + txtcontact_no2.Text + "','" + txtcontact_no3.Text + "','" + txtcontact_no4.Text + "','" + ddl_qualification.Text + "','" + ddlspecialization.Text + "','" + ddlspecialization1.Text + "','" + ddlspelization2.Text + "','" + txtcourse1.Text + "','" + ddloccupation.Text + "','" + ddlspecialization4.Text + "','" + ddlspecialization5.Text + "','" + ddlspecialization6.Text + "','1','" + txtorg1.Text + "','" + txtorg1_fromdate.Text + "','" + txtorg1_todate.Text + "','" + txtorg1_achievement.Text + "','" + txtorg1_remark.Text + "','2','" + txtorg2.Text + "','" + txtorg2_fromdate.Text + "','" + txtorg2_todate.Text + "','" + txtorg2_achievement.Text + "','" + txtorg2_remark.Text + "','3','" + txtorg3.Text + "','" + txtorg3_fromdate.Text + "','" + txtorg3_todate.Text + "','" + txtorg3_achievement.Text + "','" + txtorg3_remark.Text + "','4','" + txtorg4.Text + "','" + txtorg4_fromdate.Text + "','" + txtorg4_todate.Text + "','" + txtorg4_achievement.Text + "','" + txtorg4_remark.Text + "','1','" + txthobbies1.Text + "','" + txtextra_act1.Text + "','2','" + txthobbies2.Text + "','" + txtextra_act2.Text + "','3','" + txthobbies3.Text + "','" + txtextra_act3.Text + "','4','" + txthobbies4.Text + "','" + txtextra_act4.Text + "','5','" + txthobbies5.Text + "','" + txtextra_act5.Text + "','" + txtachievements.Text + "','" + txtbehavior_analysis.Text + "','" + txtfuture_ambition.Text + "','" + txtmeeting_reason.Text + "','" + txtmeeting_place.Text + "','" + txtmeeting_date.Text + "','" + ddlassign_work.Text + "','" + txtany_purpose.Text + "','" + isrno + "','" + ListBox1.Items[j].ToString() + "','" + ListBox10.Items[j].ToString() + "','" + ListBox2.Items[j].ToString() + "','" + ListBox3.Items[j].ToString() + "','" + ListBox4.Items[j].ToString() + "','" + ListBox5.Items[j].ToString() + "','" + ListBox6.Items[j].ToString() + "','" + ListBox7.Items[j].ToString() + "','" + ListBox8.Items[j].ToString() + "','" + ListBox9.Items[j].ToString() + "', '" + txtmemo.Text + "')";
+                // Remove loop-specific params before re-adding them
+                if (cmd.Parameters.Contains("@isrno")) cmd.Parameters.RemoveAt("@isrno");
+                if (cmd.Parameters.Contains("@lb1")) cmd.Parameters.RemoveAt("@lb1");
+                if (cmd.Parameters.Contains("@lb10")) cmd.Parameters.RemoveAt("@lb10");
+                if (cmd.Parameters.Contains("@lb2")) cmd.Parameters.RemoveAt("@lb2");
+                if (cmd.Parameters.Contains("@lb3")) cmd.Parameters.RemoveAt("@lb3");
+                if (cmd.Parameters.Contains("@lb4")) cmd.Parameters.RemoveAt("@lb4");
+                if (cmd.Parameters.Contains("@lb5")) cmd.Parameters.RemoveAt("@lb5");
+                if (cmd.Parameters.Contains("@lb6")) cmd.Parameters.RemoveAt("@lb6");
+                if (cmd.Parameters.Contains("@lb7")) cmd.Parameters.RemoveAt("@lb7");
+                if (cmd.Parameters.Contains("@lb8")) cmd.Parameters.RemoveAt("@lb8");
+                if (cmd.Parameters.Contains("@lb9")) cmd.Parameters.RemoveAt("@lb9");
+                cmd.Parameters.AddWithValue("@isrno", isrno);
+                cmd.Parameters.AddWithValue("@lb1", ListBox1.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb10", ListBox10.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb2", ListBox2.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb3", ListBox3.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb4", ListBox4.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb5", ListBox5.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb6", ListBox6.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb7", ListBox7.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb8", ListBox8.Items[j].ToString());
+                cmd.Parameters.AddWithValue("@lb9", ListBox9.Items[j].ToString());
+                cmd.CommandText = "Insert into RSS_Registration(Reg_ID, Reg_Date, Name, Nick_Name, Sex, DOB, Age, Nationality, Marriage_Date, Anniversary_Date, No_of_Family_Member, RSS_Member_ID, Address, Country, State, District, Vidhansabha, Village, Address1, Country1, State1, District1, Vidhansabha1, Village1, Address2, Country2, State2, District2, Vidhansabha2, Village2, Email_ID1, Email_ID2, Contact_No1, Contact_No2, Contact_No3, Contact_No4, Qualification, QSpecialization, QSpecialization1, QSpecialization2, Q_AnyOtherDetails, Occupation, ESpecialization, ESpecialization1, ESpecialization2, Sr_No1, Organization1, Service_From1, Service_To1, Achivement1, Remark1, Sr_No2, Organization2, Service_From2, Service_To2, Achivement2, Remark2, Sr_No3, Organization3, Service_From3, Service_To3, Achivement3, Remark3, Sr_No4, Organization4, Service_From4, Service_To4, Achivement4, Remark4, ASr_No1, Hobbies1, Extra_Activities1, ASr_No2, Hobbies2, Extra_Activities2, ASr_No3, Hobbies3, Extra_Activities3, ASr_No4, Hobbies4, Extra_Activities4, ASr_No5, Hobbies5, Extra_Activities5, Achievements, Behavior_Analysis, Future_Ambition, Meeting_Reason, Meeting_Place, Meeting_Date, Assign_Work, Inviting_Purpose, Sr_No, Organization, RSSDesignation, From_Date, To_Date, Work_Area, Work_Place, Achievement_During_Work, Additional_Remark, Varsh_Attended, Additional_Details, Memo_Discription) values(@regId, @regDate, @name, @nickName, @sex, @dob, @age, @nationality, @marriageDate, @occasion, @familyMember, @memberRss, @permanentAddr, @country, @state, @district, @city, @zone, @currAddr, @country1, @state1, @district1, @city1, @zone1, @officeAddr, @country2, @state2, @district2, @city2, @zone2, @emailId1, @emailId2, @contactNo1, @contactNo2, @contactNo3, @contactNo4, @qualification, @qSpec, @qSpec1, @qSpec2, @course1, @occupation, @eSpec, @eSpec1, @eSpec2, '1', @org1, @org1From, @org1To, @org1Ach, @org1Rem, '2', @org2, @org2From, @org2To, @org2Ach, @org2Rem, '3', @org3, @org3From, @org3To, @org3Ach, @org3Rem, '4', @org4, @org4From, @org4To, @org4Ach, @org4Rem, '1', @hobbies1, @extra1, '2', @hobbies2, @extra2, '3', @hobbies3, @extra3, '4', @hobbies4, @extra4, '5', @hobbies5, @extra5, @achievements, @behavior, @futureAmbition, @meetingReason, @meetingPlace, @meetingDate, @assignWork, @purpose, @isrno, @lb1, @lb10, @lb2, @lb3, @lb4, @lb5, @lb6, @lb7, @lb8, @lb9, @memo)";
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
                 j = j + 1;
@@ -972,7 +1137,9 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "select * from RSS_Registration Where Reg_ID='" + txtreg_id.Text + "'";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select * from RSS_Registration Where Reg_ID=@regId";
+            cmd.Parameters.AddWithValue("@regId", txtreg_id.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -1063,7 +1230,9 @@ public partial class Admin_Registration : System.Web.UI.Page
                 txtmemo.Text = dr[103].ToString();                
             }
             dr.Close();
-            cmd.CommandText = "select * from RSS_Registration Where Reg_ID='" + txtreg_id.Text + "'";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select * from RSS_Registration Where Reg_ID=@regId2";
+            cmd.Parameters.AddWithValue("@regId2", txtreg_id.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -1111,10 +1280,14 @@ public partial class Admin_Registration : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Delete from RSS_Registration Where Reg_ID='" + txtreg_id.Text + "'";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Delete from RSS_Registration Where Reg_ID=@regId";
+            cmd.Parameters.AddWithValue("@regId", txtreg_id.Text);
             cmd.Connection = con;
             cmd.ExecuteNonQuery();
-            cmd.CommandText = "Delete from RSS_SanghPariwar Where Reg_ID='" + txtreg_id.Text + "'";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Delete from RSS_SanghPariwar Where Reg_ID=@regId";
+            cmd.Parameters.AddWithValue("@regId", txtreg_id.Text);
             cmd.Connection = con;
             cmd.ExecuteNonQuery();
             string jv = "<script>alert('Record has been Deleted!!!');</script>";

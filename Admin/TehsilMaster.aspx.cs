@@ -33,7 +33,8 @@ public partial class Admin_TehsilMaster : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country='" + ddl_country.Text + "' Order By State_Name";
+            cmd.CommandText = "Select Distinct State_Name from StateMaster Where Country=@country Order By State_Name";
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -139,7 +140,13 @@ public partial class Admin_TehsilMaster : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Insert into TehsilMaster(Sr_No, Country, State_Name, District, Tehsil, Tehsil_Code) values('" + txtcomm_id.Text + "','" + ddl_country.Text + "','" + ddl_state.Text + "','" + ddl_district.Text + "','" + txtlabel_name.Text + "','" + txtcode.Text + "')";
+            cmd.CommandText = "Insert into TehsilMaster(Sr_No, Country, State_Name, District, Tehsil, Tehsil_Code) values(@srNo, @country, @stateName, @district, @tehsil, @tehsilCode)";
+            cmd.Parameters.AddWithValue("@srNo", txtcomm_id.Text);
+            cmd.Parameters.AddWithValue("@country", ddl_country.Text);
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
+            cmd.Parameters.AddWithValue("@district", ddl_district.Text);
+            cmd.Parameters.AddWithValue("@tehsil", txtlabel_name.Text);
+            cmd.Parameters.AddWithValue("@tehsilCode", txtcode.Text);
             cmd.Connection = con;
             cmd.ExecuteNonQuery();
             string jv = "<script>alert('Record has been saved!!!');</script>";
@@ -172,7 +179,9 @@ public partial class Admin_TehsilMaster : System.Web.UI.Page
             ddl_district.Items.Add("-Select-");           
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "select Distinct District from DistrictMaster Where State_Name='" + ddl_state.Text + "' Order By District";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Distinct District from DistrictMaster Where State_Name=@stateName Order By District";
+            cmd.Parameters.AddWithValue("@stateName", ddl_state.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             while (dr.Read())

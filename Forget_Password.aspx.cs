@@ -36,7 +36,8 @@ public partial class Forget_Password : System.Web.UI.Page
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();        
-            cmd.CommandText = "Select Password from Login where Login_ID='" + TextBox3.Text + "'";
+            cmd.CommandText = "Select Password from Login where Login_ID=@loginId";
+            cmd.Parameters.AddWithValue("@loginId", TextBox3.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -56,14 +57,14 @@ public partial class Forget_Password : System.Web.UI.Page
     }
     void SendMsg()
     {
-        string u_iid = "";
-        u_iid = Session["PWD"].ToString();
         string U_EMAIL = "";
         try
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
             con.Open();
-            cmd.CommandText = "Select Email from MLMRegistration where Upliner_ID='" + TextBox3.Text + "'";
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Select Email from MLMRegistration where Upliner_ID=@loginId";
+            cmd.Parameters.AddWithValue("@loginId", TextBox3.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -83,7 +84,7 @@ public partial class Forget_Password : System.Web.UI.Page
         mailMsg.From = new MailAddress("admin@[your-website.com]");
         mailMsg.To.Add(U_EMAIL);
         mailMsg.Subject = "Joining Message :";
-        mailMsg.Body = "Your ID is :" + TextBox3.Text + "and Your Password is :" + u_iid;
+        mailMsg.Body = "Please contact your administrator to reset your password.";
         SmtpClient smtp = new SmtpClient();
         smtp.Host = "[SMTP_HOST]";
         smtp.EnableSsl = false;
