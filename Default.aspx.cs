@@ -49,7 +49,9 @@ public partial class Default : System.Web.UI.Page
                 CL_MODE = dr[0].ToString();
             }
             dr.Close();
-            cmd.CommandText = "Select Login_Type from Login where (Login_ID='" + TextBox1.Text + "' AND Password=[DB_PASSWORD]" + TextBox2.Text + "')";
+            cmd.CommandText = "Select Login_Type from Login where (Login_ID=@loginId AND Password=@password)";
+            cmd.Parameters.AddWithValue("@loginId", TextBox1.Text);
+            cmd.Parameters.AddWithValue("@password", TextBox2.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
