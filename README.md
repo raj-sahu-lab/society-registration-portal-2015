@@ -1,4 +1,4 @@
-# Society Registration Portal — ERP System
+# Society Registration Portal — ERP System (2015)
 
 > **Built:** 2007–2008 · ASP.NET 3.5 WebForms · C# · SQL Server
 >
@@ -64,7 +64,3 @@ Database connection is configured in `web.config`:
 ## Note
 
 This was one of my earliest production systems — built for a real organization to manage thousands of member registrations across multiple geographic regions. The architecture reflects 2007-era ASP.NET patterns (WebForms, inline SQL, code-behind model).
-
----
-
-© 2015 Raj Sahu
