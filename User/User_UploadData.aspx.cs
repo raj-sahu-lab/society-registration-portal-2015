@@ -53,6 +53,13 @@ public partial class User_UploadData : System.Web.UI.Page
         ext = System.IO.Path.GetExtension(strFileNameWithPath);
         if (fileImage.HasFile)
         {
+            string[] allowedExts = { ".jpg", ".jpeg", ".png", ".gif" };
+            string fileExt = System.IO.Path.GetExtension(fileImage.FileName).ToLower();
+            if (!Array.Exists(allowedExts, e => e == fileExt))
+            {
+                Label1.Text = "Only JPG, PNG, or GIF files are allowed.";
+                return;
+            }
             System.IO.Stream fs = fileImage.PostedFile.InputStream;
             System.IO.BinaryReader br = new System.IO.BinaryReader(fs);
             Byte[] bytesPhoto = br.ReadBytes((Int32)fs.Length);
@@ -88,6 +95,13 @@ public partial class User_UploadData : System.Web.UI.Page
         ext = System.IO.Path.GetExtension(strFileNameWithPath);
         if (fileImage1.HasFile)
         {
+            string[] allowedExts = { ".jpg", ".jpeg", ".png", ".gif" };
+            string fileExt = System.IO.Path.GetExtension(fileImage1.FileName).ToLower();
+            if (!Array.Exists(allowedExts, e => e == fileExt))
+            {
+                Label1.Text = "Only JPG, PNG, or GIF files are allowed.";
+                return;
+            }
             System.IO.Stream fs = fileImage1.PostedFile.InputStream;
             System.IO.BinaryReader br = new System.IO.BinaryReader(fs);
             Byte[] bytesPhoto = br.ReadBytes((Int32)fs.Length);
@@ -123,6 +137,13 @@ public partial class User_UploadData : System.Web.UI.Page
         ext = System.IO.Path.GetExtension(strFileNameWithPath);
         if (fileImage2.HasFile)
         {
+            string[] allowedExts = { ".jpg", ".jpeg", ".png", ".gif" };
+            string fileExt = System.IO.Path.GetExtension(fileImage2.FileName).ToLower();
+            if (!Array.Exists(allowedExts, e => e == fileExt))
+            {
+                Label1.Text = "Only JPG, PNG, or GIF files are allowed.";
+                return;
+            }
             System.IO.Stream fs = fileImage2.PostedFile.InputStream;
             System.IO.BinaryReader br = new System.IO.BinaryReader(fs);
             Byte[] bytesPhoto = br.ReadBytes((Int32)fs.Length);
@@ -158,6 +179,13 @@ public partial class User_UploadData : System.Web.UI.Page
         ext = System.IO.Path.GetExtension(strFileNameWithPath);
         if (fileImage3.HasFile)
         {
+            string[] allowedExts = { ".jpg", ".jpeg", ".png", ".gif" };
+            string fileExt = System.IO.Path.GetExtension(fileImage3.FileName).ToLower();
+            if (!Array.Exists(allowedExts, e => e == fileExt))
+            {
+                Label1.Text = "Only JPG, PNG, or GIF files are allowed.";
+                return;
+            }
             System.IO.Stream fs = fileImage3.PostedFile.InputStream;
             System.IO.BinaryReader br = new System.IO.BinaryReader(fs);
             Byte[] bytesPhoto = br.ReadBytes((Int32)fs.Length);

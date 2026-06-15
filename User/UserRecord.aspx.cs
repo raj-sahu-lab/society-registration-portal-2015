@@ -300,7 +300,7 @@ public partial class User_UserRecord : System.Web.UI.Page
             con.Close();
             string jv1 = "<script>alert('Error!!!');</script>";
             ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "alert", jv1, false);
-            Label36.Text = ex.Message;
+            Label36.Text = "An error occurred. Please try again.";
             return;
         }
         Clear();

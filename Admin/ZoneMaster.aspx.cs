@@ -74,7 +74,7 @@ public partial class Admin_ZoneMaster : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lb_Message.Text = ex.Message;
+            lb_Message.Text = "An error occurred. Please try again.";
             con.Close();
         }
         ssr_no = max_ssr_no + 1;
@@ -116,7 +116,7 @@ public partial class Admin_ZoneMaster : System.Web.UI.Page
         catch (Exception ex)
         {
             con.Close();
-            lb_Message.Text = ex.Message;
+            lb_Message.Text = "An error occurred. Please try again.";
         }
         Clear();
     }   

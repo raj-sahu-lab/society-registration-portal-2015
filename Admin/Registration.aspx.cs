@@ -1017,7 +1017,7 @@ public partial class Admin_Registration : System.Web.UI.Page
            con.Close();
            string jv1 = "<script>alert('Mobile number can not be repeated!!!');</script>";
            ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "alert", jv1, false);
-           //Label36.Text = ex.Message;
+           //Label36.Text = "An error occurred. Please try again.";
            return;
         }
         //Send_msg();       
@@ -1043,7 +1043,7 @@ public partial class Admin_Registration : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Label36.Text = ex.Message;
+            Label36.Text = "An error occurred. Please try again.";
         }
     }
     void Clear()

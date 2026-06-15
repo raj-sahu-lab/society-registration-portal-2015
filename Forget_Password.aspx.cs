@@ -32,27 +32,6 @@ public partial class Forget_Password : System.Web.UI.Page
     }
     protected void Button8_Click(object sender, EventArgs e)
     {
-        try
-        {
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["BITRSS"].ConnectionString.Trim();
-            con.Open();        
-            cmd.CommandText = "Select Password from Login where Login_ID=@loginId";
-            cmd.Parameters.AddWithValue("@loginId", TextBox3.Text);
-            cmd.Connection = con;
-            dr = cmd.ExecuteReader();
-            if (dr.Read())
-            {
-                Session["PWD"] = dr[0].ToString();
-            }
-            dr.Close();
-            con.Close();
-        }
-        catch (Exception ex)
-        {
-            dr.Close();
-            Label1.Text = ex.Message;
-            con.Close();
-        }
         SendMsg();
     }
     void SendMsg()
@@ -77,7 +56,7 @@ public partial class Forget_Password : System.Web.UI.Page
         catch (Exception ex)
         {
             dr.Close();
-            Label1.Text = ex.Message;
+            Label1.Text = "An error occurred. Please try again.";
             con.Close();
         }
         MailMessage mailMsg = new MailMessage();
@@ -98,7 +77,7 @@ public partial class Forget_Password : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            Label1.Text = ex.Message;            
+            Label1.Text = "An error occurred. Please try again.";            
         }
     }
 }

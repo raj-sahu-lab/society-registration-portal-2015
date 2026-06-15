@@ -51,16 +51,27 @@ public partial class Default : System.Web.UI.Page
             }
             dr.Close();
             cmd.Parameters.Clear();
-            cmd.CommandText = "Select Login_Type from Login where (Login_ID=@loginId AND Password=@password)";
+            cmd.CommandText = "Select Login_Type, Password from Login where Login_ID=@loginId";
             cmd.Parameters.AddWithValue("@loginId", TextBox1.Text);
-            cmd.Parameters.AddWithValue("@password", TextBox2.Text);
             cmd.Connection = con;
             dr = cmd.ExecuteReader();
             if (dr.Read())
             {
+                string storedPassword = dr["Password"].ToString();
+                if (!PasswordHelper.VerifyPassword(TextBox2.Text, storedPassword))
+                {
+                    dr.Close();
+                    string jv2 = "<script>alert('Please enter correct login ID and password!!!');</script>";
+                    ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "alert", jv2, false);
+                    TextBox1.Text = "";
+                    TextBox2.Text = "";
+                    TextBox1.Focus();
+                    con.Close();
+                    return;
+                }
                 if (DropDownList1.Text != "User")
                 {
-                    if (dr[0].ToString() == "Admin")
+                    if (dr["Login_Type"].ToString() == "Admin")
                     {
                         if (DropDownList1.Text != "Admin")
                         {
@@ -74,7 +85,7 @@ public partial class Default : System.Web.UI.Page
                         Session["Login_ID"] = TextBox1.Text;
                         Response.Redirect("Admin/AdminHome.aspx");
                     }
-                    if (dr[0].ToString() == "User")
+                    if (dr["Login_Type"].ToString() == "User")
                     {
                         if (DropDownList1.Text != "User")
                         {
@@ -88,7 +99,7 @@ public partial class Default : System.Web.UI.Page
                         Session["Login_ID"] = TextBox1.Text;
                         Response.Redirect("User/UserHome.aspx");
                     }
-                    if (dr[0].ToString() == "Head")
+                    if (dr["Login_Type"].ToString() == "Head")
                     {
                         if ((DropDownList1.Text == "STATE HEAD") || (DropDownList1.Text == "DISTRICT HEAD") || (DropDownList1.Text == "INDIA HEAD"))
                         {
