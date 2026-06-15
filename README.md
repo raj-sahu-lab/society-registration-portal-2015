@@ -1,5 +1,9 @@
 # Society Registration Portal — ERP System
 
+> **Built:** 2007–2008 · ASP.NET 3.5 WebForms · C# · SQL Server
+>
+> This is one of the earliest projects in this portfolio, built in 2007–2008 to manage society/organisation registrations and member hierarchies for a real NGO. It represents early professional .NET development before parameterised queries and password hashing were standard practice. The codebase has been updated (June 2026) with full SQL parameterisation across 45 files (~100 queries), PBKDF2 password hashing, and a file upload extension whitelist — while preserving the original 2007 architecture.
+
 A web-based ERP system for managing society/organization member registrations, hierarchical designations, geographic zones, and reporting.
 
 > **Note:** This is a 2007–2008 portfolio codebase. Authentication uses direct SQL queries and passwords are stored without modern hashing — these would be the first things hardened before any production deployment today.
